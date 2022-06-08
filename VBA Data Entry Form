@@ -1,0 +1,959 @@
+Private Sub cb_SearchBy_Change()
+
+ 
+
+End Sub
+
+ 
+
+Private Sub cmd_Add_Click()
+
+    Dim sh As Worksheet
+
+    Set sh = ThisWorkbook.Sheets("2022_CAP Planning")
+
+    Dim last_row As Long
+
+    last_row = Worksheets("2022_CAP Planning").Range("A" & Rows.Count).End(xlUp).Row
+
+   
+
+    'Validations------------------------------------------------------------------------------
+
+    If Me.cb_LC.Value = "" Then
+
+    MsgBox "Please select an LC", vbCritical
+
+    Exit Sub
+
+    End If
+
+    '--------------------------------------------------------------------------------
+
+    ' Add data to the table
+
+   
+
+    
+
+    sh.Range("A" & last_row + 1).Value = sh.Range("A" & last_row).Value + 1
+
+    sh.Range("B" & last_row + 1).Value = Me.cb_Workcenter.Value
+
+    sh.Range("C" & last_row + 1).Value = Me.cb_LC.Value
+
+    sh.Range("D" & last_row + 1).Value = Me.txt_Order.Value
+
+    sh.Range("E" & last_row + 1).Value = Me.txt_description.Value
+
+    sh.Range("G" & last_row + 1).Value = Me.cb_partner_cost.Value
+
+    sh.Range("H" & last_row + 1).Value = Me.txt_JAN.Value
+
+    sh.Range("I" & last_row + 1).Value = Me.txt_FEB.Value
+
+    sh.Range("J" & last_row + 1).Value = Me.txt_MAR.Value
+
+    sh.Range("K" & last_row + 1).Value = Me.txt_APR.Value
+
+    sh.Range("L" & last_row + 1).Value = Me.txt_MAY.Value
+
+    sh.Range("M" & last_row + 1).Value = Me.txt_JUN.Value
+
+    sh.Range("N" & last_row + 1).Value = Me.txt_JUL.Value
+
+    sh.Range("O" & last_row + 1).Value = Me.txt_AUG.Value
+
+    sh.Range("P" & last_row + 1).Value = Me.txt_SEP.Value
+
+    sh.Range("Q" & last_row + 1).Value = Me.txt_OCT.Value
+
+    sh.Range("R" & last_row + 1).Value = Me.txt_NOV.Value
+
+    sh.Range("S" & last_row + 1).Value = Me.txt_DEC.Value
+
+   
+
+    Rows(last_row + 1).AutoFit
+
+    Rows(last_row + 2).Insert
+
+   
+
+    
+
+    Me.txt_ID.Value = ""
+
+   Me.cb_Workcenter.Value = ""
+
+   Me.cb_LC.Value = ""
+
+   Me.txt_Order.Value = ""
+
+   Me.txt_description.Value = ""
+
+   Me.cb_partner_cost.Value = ""
+
+   Me.txt_JAN.Value = ""
+
+   Me.txt_FEB.Value = ""
+
+   Me.txt_MAR.Value = ""
+
+   Me.txt_APR.Value = ""
+
+   Me.txt_MAY.Value = ""
+
+   Me.txt_JUN.Value = ""
+
+   Me.txt_JUL.Value = ""
+
+   Me.txt_AUG.Value = ""
+
+   Me.txt_SEP.Value = ""
+
+   Me.txt_OCT.Value = ""
+
+   Me.txt_NOV.Value = ""
+
+   Me.txt_DEC.Value = ""
+
+ 
+
+MsgBox "Data added"
+
+ 
+
+ 
+
+Call refresh_data
+
+ 
+
+End Sub
+
+ 
+
+ 
+
+Private Sub cmd_Clear_Click()
+
+    Me.txt_ID.Value = ""
+
+   Me.cb_Workcenter.Value = ""
+
+   Me.cb_LC.Value = ""
+
+   Me.txt_Order.Value = ""
+
+   Me.txt_description.Value = ""
+
+   Me.txt_Note.Value = ""
+
+   Me.cb_partner_cost.Value = ""
+
+   Me.txt_JAN.Value = ""
+
+   Me.txt_FEB.Value = ""
+
+   Me.txt_MAR.Value = ""
+
+   Me.txt_APR.Value = ""
+
+   Me.txt_MAY.Value = ""
+
+   Me.txt_JUN.Value = ""
+
+   Me.txt_JUL.Value = ""
+
+   Me.txt_AUG.Value = ""
+
+   Me.txt_SEP.Value = ""
+
+   Me.txt_OCT.Value = ""
+
+   Me.txt_NOV.Value = ""
+
+   Me.txt_DEC.Value = ""
+
+End Sub
+
+ 
+
+Private Sub cmd_delete_Click()
+
+ 
+
+    If Me.txt_ID.Value = "" Then
+
+        MsgBox "Select a record to delete"
+
+        Exit Sub
+
+    End If
+
+ 
+
+Dim sh As Worksheet
+
+Set sh = ThisWorkbook.Sheets("2022_AccessRoadPlanning")
+
+ 
+
+'Dim Selected_Row As Long
+
+'Selected_Row = Application.WorksheetFunction.Match(CLng(Me.txt_ID.Value), sh.Range("A:A"), 0)
+
+'MsgBox (Application.WorksheetFunction.Match(CLng(Me.txt_ID.Value), sh.Range("A:A"), 0))
+
+Rows(Application.WorksheetFunction.Match(CLng(Me.txt_ID.Value), sh.Range("A:A"), 0)).EntireRow.Delete
+
+ 
+
+'sh.Range("A" & Selected_Row).Value = ""
+
+'sh.Range("B" & Selected_Row).Value = ""
+
+'sh.Range("C" & Selected_Row).Value = ""
+
+'sh.Range("D" & Selected_Row).Value = ""
+
+'sh.Range("E" & Selected_Row).Value = ""
+
+'sh.Range("F" & Selected_Row).Value = ""
+
+'sh.Range("G" & Selected_Row).Value = ""
+
+'sh.Range("H" & Selected_Row).Value = ""
+
+'sh.Range("I" & Selected_Row).Value = ""
+
+'sh.Range("J" & Selected_Row).Value = ""
+
+'sh.Range("K" & Selected_Row).Value = ""
+
+'sh.Range("L" & Selected_Row).Value = ""
+
+'sh.Range("M" & Selected_Row).Value = ""
+
+'sh.Range("N" & Selected_Row).Value = ""
+
+'sh.Range("O" & Selected_Row).Value = ""
+
+'sh.Range("P" & Selected_Row).Value = ""
+
+'sh.Range("Q" & Selected_Row).Value = ""
+
+'sh.Range("R" & Selected_Row).Value = ""
+
+'sh.Range("S" & Selected_Row).Value = ""
+
+ 
+
+'Me.cb_Region.Value = ""
+
+'Me.cb_LC.Value = ""
+
+'Me.cb_Workcenter.Value = ""
+
+'Me.txt_Order.Value = ""
+
+'Me.txt_OrderDesc.Value = ""
+
+'Me.cb_Capitalized.Value ""
+
+'Me.txt_JAN.Value = ""
+
+'Me.txt_FEB.Value = ""
+
+'Me.txt_MAR.Value = ""
+
+'Me.txt_APR.Value = ""
+
+'Me.txt_MAY.Value = ""
+
+'Me.txt_JUN.Value = ""
+
+'Me.txt_JUL.Value = ""
+
+'Me.txt_AUG.Value = ""
+
+'Me.txt_SEP.Value = ""
+
+'Me.txt_OCT.Value = ""
+
+'Me.txt_NOV.Value = ""
+
+'Me.txt_DEC.Value = ""
+
+ 
+
+ 
+
+Call refresh_data
+
+MsgBox "record deleted"
+
+ 
+
+ 
+
+End Sub
+
+ 
+
+Private Sub cmd_Search_Click()
+
+'   condition for if blank textbox
+
+    If Me.txt_Search = "" Then
+
+        MsgBox "Please enter the search value.", vbOKOnly + vbInformation, "Search"
+
+        Exit Sub
+
+    End If
+
+   
+
+    Application.ScreenUpdating = False
+
+   
+
+    Dim sh As Worksheet ' 2022_AccessRoadPlanning
+
+    Dim sht As Worksheet ' SearchData sheet
+
+   
+
+    '   The reason to use SearchData sheet is because if I just return result from Construction_PLAN, it will _
+
+        return every record of that sheet. Filtered rows are just hidden from the sheet. So copying the sheet will also _
+
+        copy the hidden rows in that sheet.
+
+    Set sh = ThisWorkbook.Sheets("2022_AccessRoadPlanning")
+
+    Set sht = ThisWorkbook.Sheets("SearchData")
+
+   
+
+    Dim ish As Long ' for the last non-blank row number available in Construction_PLAN Budget sheet
+
+    Dim isht As Long ' for the last non-blank row number avaialble in searchdata sheet
+
+   
+
+    Dim iColumn As Integer ' to select column number in EXP Budget sheet
+
+   
+
+    ish = ThisWorkbook.Sheets("2022_AccessRoadPlanning").Range("A" & Application.Rows.Count).End(xlUp).Row
+
+   
+
+    ' condition if blank search combo box
+
+    If Me.cb_SearchBy.Value = Empty Then
+
+        MsgBox "Please select a search criteria"
+
+        Exit Sub
+
+   End If
+
+   
+
+    ' to generate column number when you select a search criteria _
+
+    which must be the same as worksheet value
+
+    iColumn = Application.WorksheetFunction.Match(Trim(Me.cb_SearchBy.Value), sh.Range("A4:G4"), 0)
+
+   
+
+    ' condition for remove filter from worksheet
+
+    If sh.FilterMode = True Then
+
+        sh.AutoFilterMode = False
+
+    End If
+
+   
+
+    ' apply filter on worksheet
+
+    If Me.cb_SearchBy.Value = "Order No" Then
+
+        sh.Range("A4:S" & ish).AutoFilter Field:=iColumn, Criteria1:=Me.txt_Search.Value
+
+        'sh.Range("A4:S4").AutoFilter Field:=iColumn, Criteria1:=Me.txt_Search.Value
+
+    ' Order number is a numeric value, so criteria1 needs to do an exact match
+
+    Else
+
+        ' now search for other criteria
+
+        sh.Range("A4:S" & ish).AutoFilter Field:=iColumn, Criteria1:="*" & Me.txt_Search.Value & "*"
+
+        'sh.Range("A4:S4").AutoFilter Field:=iColumn, Criteria1:="*" & Me.txt_Search.Value & "*"
+
+    End If
+
+   
+
+        ' now clear searchData sheet if anything present in the sheet
+
+    sht.Cells.Clear
+
+   
+
+    'Copy filtered data to SearchData sheet
+
+    '-------------------------------
+
+    sh.Range("A4:S" & ish).SpecialCells(xlCellTypeVisible).Copy
+
+    sht.Cells().PasteSpecial (xlPasteValuesAndNumberFormats)
+
+    '-------------------------------
+
+        ' now copy the filter data from EXP_Budget sheet
+
+        ' paste it into SearchData sheet
+
+    'sh.AutoFilter.Range.Copy sht.Range("A4")
+
+    'Application.CutCopyMode = False
+
+   
+
+        ' find out the last non-blank row number from SearchData sheet for repopulate listbox
+
+    isht = sht.Range("A" & Application.Rows.Count).End(xlUp).Row
+
+       
+
+        ' populate list box from search data
+
+    Me.ListBox2.ColumnCount = 19
+
+       
+
+    Me.ListBox2.ColumnWidths = "20,35,35,55,50,200,50,50,50,50,50,50,50,50,50,50,50,50,50"
+
+       
+
+        ' if data found
+
+    If isht > 1 Then
+
+        Me.ListBox2.RowSource = "SearchData!A2:S" & isht
+
+        MsgBox "Records found"
+
+    Else:
+
+        MsgBox "No record found."
+
+ 
+
+    End If
+
+       
+
+    sh.AutoFilterMode = False
+
+    Application.ScreenUpdating = True
+
+End Sub
+
+ 
+
+Private Sub cmd_ShowAll_Click()
+
+    Dim sh As Worksheet
+
+    Set sh = Sheets("2022_AccessRoadPlanning")
+
+   
+
+    Dim iRow As Long
+
+    iRow = sh.Range("A" & Rows.Count).End(xlUp).Row
+
+        With Me.ListBox2
+
+            .ColumnCount = 19
+
+            .ColumnHeads = True
+
+            .ColumnWidths = "20,35,35,55,50,200,50,50,50,50,50,50,50,50,50,50,50,50,50"
+
+            .RowSource = "2022_AccessRoadPlanning!A5:S" & iRow
+
+        End With
+
+   
+
+    ' Clear all the filter in the workbook and display all data
+
+    Call LoopThroughTablesInsideWorkbook
+
+End Sub
+
+ 
+
+Private Sub cmd_Update_Click()
+
+If Me.txt_ID.Value = "" Then
+
+MsgBox "Select a record to update"
+
+Exit Sub
+
+End If
+
+ 
+
+Dim sh As Worksheet
+
+Set sh = ThisWorkbook.Sheets("2022_AccessRoadPlanning")
+
+ 
+
+Dim Selected_Row As Long
+
+Selected_Row = Application.WorksheetFunction.Match(CLng(Me.txt_ID.Value), sh.Range("A:A"), 0)
+
+ 
+
+sh.Range("A" & Selected_Row).Value = Me.txt_ID.Value
+
+sh.Range("B" & Selected_Row).Value = Me.cb_Workcenter.Value
+
+sh.Range("C" & Selected_Row).Value = Me.cb_LC.Value
+
+sh.Range("D" & Selected_Row).Value = Me.txt_Order.Value
+
+sh.Range("E" & Selected_Row).Value = Me.txt_description.Value
+
+sh.Range("F" & Selected_Row).Value = Me.txt_Note.Value
+
+sh.Range("G" & Selected_Row).Value = Me.cb_partner_cost.Value
+
+sh.Range("H" & Selected_Row).Value = Me.txt_JAN.Value
+
+sh.Range("I" & Selected_Row).Value = Me.txt_FEB.Value
+
+sh.Range("J" & Selected_Row).Value = Me.txt_MAR.Value
+
+sh.Range("K" & Selected_Row).Value = Me.txt_APR.Value
+
+sh.Range("L" & Selected_Row).Value = Me.txt_MAY.Value
+
+sh.Range("M" & Selected_Row).Value = Me.txt_JUN.Value
+
+sh.Range("N" & Selected_Row).Value = Me.txt_JUL.Value
+
+sh.Range("O" & Selected_Row).Value = Me.txt_AUG.Value
+
+sh.Range("P" & Selected_Row).Value = Me.txt_SEP.Value
+
+sh.Range("Q" & Selected_Row).Value = Me.txt_OCT.Value
+
+sh.Range("R" & Selected_Row).Value = Me.txt_NOV.Value
+
+sh.Range("S" & Selected_Row).Value = Me.txt_DEC.Value
+
+ 
+
+'Me.cb_Region.Value = ""
+
+'Me.cb_LC.Value = ""
+
+'Me.cb_Workcenter.Value = ""
+
+'Me.txt_Order.Value = ""
+
+'Me.txt_OrderDesc.Value = ""
+
+'Me.cb_Capitalized.Value ""
+
+'Me.txt_JAN.Value = ""
+
+'Me.txt_FEB.Value = ""
+
+'Me.txt_MAR.Value = ""
+
+'Me.txt_APR.Value = ""
+
+'Me.txt_MAY.Value = ""
+
+'Me.txt_JUN.Value = ""
+
+'Me.txt_JUL.Value = ""
+
+'Me.txt_AUG.Value = ""
+
+'Me.txt_SEP.Value = ""
+
+'Me.txt_OCT.Value = ""
+
+'Me.txt_NOV.Value = ""
+
+'Me.txt_DEC.Value = ""
+
+ 
+
+ 
+
+Call refresh_data
+
+MsgBox "record updated"
+
+ 
+
+ 
+
+End Sub
+
+ 
+
+ 
+
+ 
+
+Private Sub Frame1_Click()
+
+ 
+
+End Sub
+
+ 
+
+Private Sub lb_Note_Click()
+
+ 
+
+End Sub
+
+ 
+
+Private Sub ListBox2_Click()
+
+Me.txt_ID.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 0)
+
+Me.cb_Workcenter.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 1)
+
+Me.cb_LC.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 2)
+
+Me.txt_Order.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 3)
+
+Me.txt_description.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 4)
+
+Me.txt_Note.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 5)
+
+Me.cb_partner_cost.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 6)
+
+Me.txt_JAN.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 7)
+
+Me.txt_FEB.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 8)
+
+Me.txt_MAR.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 9)
+
+Me.txt_APR.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 10)
+
+Me.txt_MAY.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 11)
+
+Me.txt_JUN.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 12)
+
+Me.txt_JUL.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 13)
+
+Me.txt_AUG.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 14)
+
+Me.txt_SEP.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 15)
+
+Me.txt_OCT.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 16)
+
+Me.txt_NOV.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 17)
+
+Me.txt_DEC.Value = Me.ListBox2.List(Me.ListBox2.ListIndex, 18)
+
+End Sub
+
+ 
+
+ 
+
+Private Sub UserForm_Initialize()
+
+   
+
+    Worksheets("2022_AccessRoadPlanning").Select
+
+   
+
+    Dim last_row As Long
+
+    last_row = Worksheets("2022_AccessRoadPlanning").Range("A" & Rows.Count).End(xlUp).Row
+
+   
+
+    ' add item to all the combox boxes
+
+    'With Access_Road_Planning 'Construction_Budget
+
+        cb_SearchBy.AddItem "WorkCenter"
+
+        cb_SearchBy.AddItem "LC"
+
+        cb_SearchBy.AddItem "Order No"
+
+        cb_SearchBy.AddItem "Description (include work notes and operation specifics)"
+
+        cb_SearchBy.AddItem "Note"
+
+        cb_SearchBy.AddItem "Partner Cost Description"
+
+       
+
+        '.cb_Region.AddItem "C"
+
+        '.cb_Region.AddItem "N"
+
+        '.cb_Region.AddItem "S"
+
+       
+
+        cb_Workcenter.AddItem "Bay"
+
+        cb_Workcenter.AddItem "Eureka"
+
+        cb_Workcenter.AddItem "Fresno"
+
+        cb_Workcenter.AddItem "Lakeville"
+
+        cb_Workcenter.AddItem "Midway"
+
+        cb_Workcenter.AddItem "Moss"
+
+        cb_Workcenter.AddItem "Pismo"
+
+        cb_Workcenter.AddItem "Sacramento"
+
+        cb_Workcenter.AddItem "Victor"
+
+        cb_Workcenter.AddItem "Table"
+
+       
+
+        cb_partner_cost.AddItem "MANAGEMENT HOURS"
+
+        cb_partner_cost.AddItem "MGMT COSTS"
+
+        cb_partner_cost.AddItem "ENV COST"
+
+        cb_partner_cost.AddItem "PRO SERV COST"
+
+        cb_partner_cost.AddItem "CONSTRUCTION COST"
+
+       
+
+        '.cb_LC.AddItem "TLLI"
+
+        '.cb_LC.AddItem "E3ME"
+
+        '.cb_LC.AddItem "KFV3"
+
+        '.cb_LC.AddItem "KGF5"
+
+        '.cb_LC.AddItem "M5A2"
+
+        '.cb_LC.AddItem "WAP5"
+
+       
+
+        'cb_Capitalized.AddItem "Yes"
+
+        'cb_Capitalized.AddItem "No"
+
+       
+
+        cb_LC.List = Array("TLLI", "E3ME", "KFV3", "KGF5", "M5A2", "WAP5")
+
+       
+
+    ' to clear filter from sheets
+
+        ThisWorkbook.Sheets("2022_AccessRoadPlanning").AutoFilterMode = False
+
+        ThisWorkbook.Sheets("SearchData").AutoFilterMode = False
+
+        ThisWorkbook.Sheets("SearchData").Cells.Clear
+
+       
+
+    ' populate listbox
+
+        ListBox2.ColumnCount = 19
+
+        ListBox2.ColumnHeads = True
+
+        ListBox2.ColumnWidths = "20,35,35,55,50,200,50,50,50,50,50,50,50,50,50,50,50,50,50"
+
+       
+
+        ' condition
+
+        If last_row > 1 Then 'if data present in database then
+
+            ListBox2.RowSource = "2022_AccessRoadPlanning!A5:S" & last_row
+
+        Else
+
+            ListBox2.RowSource = "2022_AccessRoadPlanning!A5:S2"
+
+        End If
+
+    'End With
+
+   
+
+End Sub
+
+ 
+
+Sub refresh_data()
+
+ 
+
+'   Used code from Search button to populate listbox with updated data.
+
+'   After updating the data, the updated value will reflect in the EXP_Construction_Budget table. _
+
+    then I need to copy the EXP table again to the SearchData tab  and use that to populate listbox. _
+
+ 
+
+    Application.ScreenUpdating = False
+
+   
+
+    Dim sh As Worksheet ' EXP_Construction_Budget sheet
+
+    Dim sht As Worksheet ' SearchData sheet
+
+   
+
+    Set sh = ThisWorkbook.Sheets("2022_AccessRoadPlanning")
+
+    Set sht = ThisWorkbook.Sheets("SearchData")
+
+   
+
+    Dim ish As Long ' for the last non-blank row number available in EXP Budget sheet
+
+    Dim isht As Long ' for the last non-blank row number avaialble in searchdata sheet
+
+   
+
+    Dim iColumn As Integer ' to select column number in EXP Budget sheet
+
+   
+
+    ish = ThisWorkbook.Sheets("2022_AccessRoadPlanning").Range("A" & Application.Rows.Count).End(xlUp).Row
+
+   
+
+    
+
+        ' now clear searchData sheet if anything present in the sheet
+
+    sht.Cells.Clear
+
+   
+
+    'Copy filtered data to SearchData sheet
+
+    '-------------------------------
+
+    sh.Range("A4:S" & ish).SpecialCells(xlCellTypeVisible).Copy
+
+    sht.Cells().PasteSpecial (xlPasteValuesAndNumberFormats)
+
+    '-------------------------------
+
+        ' now copy the filter data from EXP_Budget sheet
+
+        ' paste it into SearchData sheet
+
+    'sh.AutoFilter.Range.Copy sht.Range("A1")
+
+    'Application.CutCopyMode = False
+
+   
+
+        ' find out the last non-blank row number from SearchData sheet for repopulate listbox
+
+    isht = sht.Range("A" & Application.Rows.Count).End(xlUp).Row
+
+       
+
+        ' populate list box from search data
+
+    Me.ListBox2.ColumnCount = 19
+
+    Me.ListBox2.ColumnWidths = "20,35,35,55,50,200,50,50,50,50,50,50,50,50,50,50,50,50,50"
+
+        ' if data found
+
+    If isht > 1 Then
+
+        Me.ListBox2.RowSource = "SearchData!A2:S" & isht
+
+    End If
+
+       
+
+    sh.AutoFilterMode = False
+
+    Application.ScreenUpdating = True
+
+ 
+
+End Sub
+
+ 
+
+'   Display all data by removing all the filters
+
+Sub LoopThroughTablesInsideWorkbook()
+
+ 
+
+    Dim myTable As ListObject
+
+    Dim mySheet As Worksheet
+
+   
+
+    For Each mySheet In Worksheets
+
+        For Each myTable In mySheet.ListObjects
+
+           myTable.AutoFilter.ShowAllData
+
+        Next myTable
+
+    Next mySheet
+
+ 
+
+End Sub
+
+ 
+
+ 
